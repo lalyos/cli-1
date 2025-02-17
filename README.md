@@ -1,3 +1,36 @@
+# Hack - usage
+
+If you want to have support for **json array syntax** in `docker run --entrypoint`. Use a patched binary.
+
+Install - (mac/linux)
+```
+curl -Lo /usr/local/bin/docker-hack https://github.com/lalyos/cli-1/releases/download/hack/docker-$(uname)
+chmod +x /usr/local/bin/docker-hack
+alias docker=/usr/local/bin/docker-hack
+```
+
+usage:
+```
+$ docker run --entrypoint '["sh","-c","echo look ma entrypoint as an array"]' alpine
+
+look ma entrypoint as an array
+```
+
+
+This is the commit: [3 lines change](
+https://github.com/lalyos/cli-1/commit/284534fd03fd15431cd54597ded9ca9c843f67f8 )
+# Hack - background
+
+I was wondering if its possible to use **json array syntax** in `docker run --entrypoint ' alpine` the same way as `ENTRYPOINT` in a Dockerfile.
+
+right now it's not possible
+```
+$ docker run --entrypoint '["sh","-c","echo ok"]' alpine
+
+docker: Error response from daemon: failed to create task for container: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "[\"sh\",\"-c\",\"echo ok\"]": executable file not found in $PATH: unknown.
+```
+
+
 # Docker CLI
 
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/docker/cli)](https://pkg.go.dev/github.com/docker/cli)
